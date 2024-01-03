@@ -1,4 +1,4 @@
-#include"tiretree.h"
+#include"trietree.h"
 #include<fstream>
 #include<string.h>
 using namespace std;
@@ -21,7 +21,7 @@ bool tiretree::insert(char eng[], char chi[]) {
 	Word* node = root;
 	int i, j;
 	for (i = 0; i < strlen(eng); i++) {
-		j = order(eng[i]);//Ñ°ÕÒ¶ÔÓ¦·ÖÖ§¡£
+		j = order(eng[i]);
 		if (j == -1) {
 			cout << "ÊäÈë·Ç·¨" << endl;
 			return false;
@@ -29,15 +29,15 @@ bool tiretree::insert(char eng[], char chi[]) {
 		if (node->next[j] == NULL) {
 			node->next[j] = new Word;
 		}
-		node = node->next[j];//¹¤×÷Ö¸ÕëÖ¸Ïò¶ÔÓ¦ÏÂÒ»·ÖÖ§¡£
+		node = node->next[j];
 	}
-	if (node->isexistence()) {//²é¿´µ¥´ÊÊÇ·ñÒÑ¾­´æÔÚ¡£
+	if (node->isexistence()) {
 		cout << node->getEnglish() << endl;
 		cout << node->getChinese() << endl;
 		cout << "´Ëµ¥´ÊÒÑ´æÔÚ" << endl;
 		return false;
 	}
-	else {//²»´æÔÚÉèÖÃµ¥´ÊÊôĞÔ
+	else {
 		node->setE(true);
 		node->setChinese(chi);
 		node->setEnglish(eng);
@@ -47,16 +47,16 @@ bool tiretree::insert(char eng[], char chi[]) {
 }
 
 //²éÕÒ²Ù×÷
-Word* tiretree::search(char word[]) {//²éÕÒº¯Êı, ·µ»Øµ¥´ÊÀàµØÖ·¡£
-	Word* node = root;//¹¤×÷Ö¸Õë
+Word* tiretree::search(char word[]) {
+	Word* node = root;
 	int i, j;
 	for (i = 0; i < strlen(word); i++) {
-		j = order(word[i]);//²éÕÒ¶ÔÓ¦·ÖÖ§¡£
-		if (j == -1) {//¼ì²â·Ç·¨ÊäÈëµ¥´Ê
+		j = order(word[i]);
+		if (j == -1) {
 			cout << "ÊäÈë·Ç·¨" << endl;
 			return NULL;
 		}
-		if (node->next[j] == NULL) {//½ÚµãÎª¿Õ²»´æÔÚ¸Ãµ¥´Ê
+		if (node->next[j] == NULL) {
 			node = node->next[j];
 			break;
 		}
@@ -80,9 +80,9 @@ Word* tiretree::search(char word[]) {//²éÕÒº¯Êı, ·µ»Øµ¥´ÊÀàµØÖ·¡£
 
 //É¾³ıµ¥´Ê
 bool tiretree::dele(char word[]) {
-	Word* node = search(word);//ÕÒµ½¶ÔÓ¦µ¥´ÊµØÖ·
-	if (node == NULL)return false;//Èç¹û¸ÃµØÖ·Îª¿Õ£¬Ôò´Ê¿âÖĞ²»´æÔÚ¸Ãµ¥´ÊÉ¾³ıÊ§°Ü
-	node->setChinese("no find");//²éÕÒ³É¹¦ĞŞ¸Ä½ÚµãĞÅÏ¢¡£
+	Word* node = search(word);
+	if (node == NULL)return false;
+	node->setChinese("no find");
 	node->setEnglish("no find");
 	node->setE(false);
 	return true;
@@ -90,9 +90,9 @@ bool tiretree::dele(char word[]) {
 
 //ĞŞ¸Äº¯Êı
 bool tiretree::change(char word[]) {
-	Word* node = search(word);//ËÑË÷µ½ÒªĞŞ¸ÄµÄµØÖ·
+	Word* node = search(word);
 	if (node == NULL)return false;
-	string a;//ÒòÎª×ÖµäÊ÷Ã¿Ò»ÌõÂ·¾¶¶ÔÓ¦µÄ×Ö·û´®Î¨Ò»ËùÒÔ²»¿ÉÒÔĞŞ¸Äµ¥´ÊÆ´Ğ´¡£
+	string a;
 	cout << "ÇëÊäÈëĞŞ¸ÄºóÒâË¼" << endl;
 	cin >> a;
 	node->setChinese(a);
@@ -103,8 +103,8 @@ bool tiretree::change(char word[]) {
 void tiretree::fileread(string File) {
 	ifstream infile(File, ios::in);
 	if (!infile) {
-		cerr << "´ò¿ªÎÄ¼şÊ§°Ü" << endl;//Òì³£ÌáÊ¾
-		exit(1);//Òì³£ÍË³ö
+		cerr << "´ò¿ªÎÄ¼şÊ§°Ü" << endl;
+		exit(1);
 	}
 	char str1[1024];
 	char str2[1204];
@@ -115,9 +115,9 @@ void tiretree::fileread(string File) {
 	}	
 }
 
-//ÎÄ¼ş¶ÁÈ¡²Ù×÷ÖØÔØ
+
 void tiretree::fileread() {
-	//´´½¨Êı×é´æ´¢¶ÔÓ¦ÎÄ¼şÂ·¾¶¡£
+	
 	char File[26][50] = { "D://Dictionary/a.txt","D://Dictionary/b.txt","D://Dictionary/c.txt","D://Dictionary/d.txt",
 						  "D://Dictionary/e.txt","D://Dictionary/f.txt","D://Dictionary/g.txt","D://Dictionary/h.txt",
 						  "D://Dictionary/i.txt","D://Dictionary/j.txt","D://Dictionary/k.txt","D://Dictionary/l.txt",
@@ -135,18 +135,17 @@ void tiretree::fileread() {
 			exit(1);
 		}
 		char str1[1024];
-		char str2[1204];
-		while (infile.getline(str1, sizeof(str1),' ')) {//½«Êı¾İ´Ó´ÅÅÌÖĞ¶ÁÈ¡µ½³ÌĞòÀï
+		char str2[1204]; 
+		while (infile.getline(str1, sizeof(str1),' ')) {
 			infile.getline(str2, sizeof(str2));
-			//cout << str1 << endl << str2 << endl; //²âÊÔÓÃ²¿·Ö¡£
-			insert(str1, str2);//½«Êı¾İ²åÈëµ½×ÖµäÊ÷¡£
+			insert(str1, str2);
 		}
 		infile.close();
 	}
 }
 
 //Êı¾İĞ´Èëµ¥Á´±í
-void tiretree::filewrite(Word* node, medium* &bt) {//µİ¹éÇ°Ğò±éÀú£¬½«ĞÅÏ¢Ğ´ÈëÁ´±íÔÙ½«Á´±íĞÅÏ¢Ğ´Èë´ÅÅÌ¡£
+void tiretree::filewrite(Word* node, medium* &bt) {
 	if (node == NULL)return;
 	else {
 		if (node->isexistence()) {
@@ -163,7 +162,7 @@ void tiretree::filewrite(Word* node, medium* &bt) {//µİ¹éÇ°Ğò±éÀú£¬½«ĞÅÏ¢Ğ´ÈëÁ´±
 	}
 }
 
-//Êı¾İĞ´Èë¶ÔÓ¦ĞòºÅÎÄ¼ş
+//ÏÈ½«ÉıĞòÅÅÁĞµÄµ¥´ÊĞÅÏ¢Ğ´ÈëÁ´±í£¬È»ºó´æÈëµ½txtÎÄ¼şÖĞ 
 void tiretree::filewrite(int i) {
 	medium* bt = new medium;
 	medium* re = bt;
@@ -175,14 +174,14 @@ void tiretree::filewrite(int i) {
 								"D://Dictionary/u.txt","D://Dictionary/v.txt","D://Dictionary/w.txt","D://Dictionary/x.txt",
 								"D://Dictionary/y.txt","D://Dictionary/z.txt" };
 	ofstream ot(File[i], ios::out);
-	filewrite(root->next[i], re);//ÉıĞòÅÅĞòµÄµ¥´Ê¼°ĞÅÏ¢Ğ´ÈëÁ´±í bt¡£
+	filewrite(root->next[i], re);
 	re = bt->next;
 	while (re) {
-		ot << re->data1 << ' ';//½«Á´±íĞÅÏ¢Ğ´Èë´ÅÅÌ¡£
+		ot << re->data1 << ' ';
 		ot << re->data2 << endl;
 		re = re->next;
 	}
-	while (bt) {//ÊÍ·ÅÁ´±íÕ¼ÓÃÄÚ´æ
+	while (bt) {
 		re = bt->next;
 		delete bt;
 		bt = re;
@@ -199,7 +198,9 @@ void tiretree::Dele(Word* node) {
 	delete node;
 }
 
-int tiretree::order(char c) {//´¦Àí×Ö·û¡£
+
+//¶Ô×Ö·û½øĞĞ´¦Àí 
+int tiretree::order(char c) {
 	if (c >= 'a' && c <= 'z')
 	{
 		int j = c - 'a';

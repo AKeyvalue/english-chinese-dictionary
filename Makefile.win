@@ -1,17 +1,17 @@
 # Project: 项目1
 # Makefile created by Dev-C++ 5.11
 
-CPP      = g++.exe -std=c++11 -D__DEBUG__
-CC       = gcc.exe -std=c++11 -D__DEBUG__
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = main.o manager.o orderlist.o tiretree.o
-LINKOBJ  = main.o manager.o orderlist.o tiretree.o
+OBJ      = main.o manager.o orderlist.o trietree.o redblacktree.o
+LINKOBJ  = main.o manager.o orderlist.o trietree.o redblacktree.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
 BIN      = 项目1.exe
-CXXFLAGS = $(CXXINCS) -g3
-CFLAGS   = $(INCS) -g3
+CXXFLAGS = $(CXXINCS) -g3 -std=c++11
+CFLAGS   = $(INCS) -g3 -std=c++11
 RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom
@@ -33,5 +33,8 @@ manager.o: manager.cpp
 orderlist.o: orderlist.cpp
 	$(CPP) -c orderlist.cpp -o orderlist.o $(CXXFLAGS)
 
-tiretree.o: tiretree.cpp
-	$(CPP) -c tiretree.cpp -o tiretree.o $(CXXFLAGS)
+trietree.o: trietree.cpp
+	$(CPP) -c trietree.cpp -o trietree.o $(CXXFLAGS)
+
+redblacktree.o: redblacktree.cpp
+	$(CPP) -c redblacktree.cpp -o redblacktree.o $(CXXFLAGS)

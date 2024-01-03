@@ -22,33 +22,32 @@ void orderlist::fileInsert() {
 	char me[150] = "";
 	ifstream infile;
 	int n[26];
-	word_length[0] = 0;//单词a开始
+	word_length[0] = 0;
 	for (i = 0; i < 26; i++) {
 		infile.open(File[i]);
 		if (!infile) {
 			cerr << "打开文件" << File[i] << "失败" << endl;
 			exit(1);
 		}
-		while (infile.getline(en, sizeof(en), ' ')) {//读取文件
+		while (infile.getline(en, sizeof(en), ' ')) {
 			infile.getline(me, sizeof(me));
 			word[num] = en;
 			mean[num] = me;
-			//cout << "word" << "[" << num << ']' << en << endl;
 			num++;
 		}
-		n[i] = num;//记录位置
+		n[i] = num;
 		infile.close();
 	}
 	for (i = 1; i < 26; i++) {
 		word_length[i] = n[i - 1];
-		//cout << word_length[i] << endl;
+		
 	}
 }
-
-int orderlist::search(string n, int low, int high) {//二分查找前提单词有序排列
+//进行二分查找 
+int orderlist::search(string n, int low, int high) {
 	int middle = (low + high) / 2;
 	if (low > high) {
-		return -1;//未找到。返回-1；
+		return -1;
 	}
 	if (word[middle] == n) {
 		return middle;
@@ -68,25 +67,25 @@ void orderlist::wordFind() {
 	string w;
 	cout << "请输入要查找的单词" << endl;
 	cin >> w;
-	int judge = search(w, 0, num);//折半查找返回单词所在地址
+	int judge = search(w, 0, num);
 	if (judge == -1) {
 		cout << "未查到该单词是否将它插入" << endl;
-		cout << "是：1———————否：2" << endl;//判断是否插入
+		cout << "是：1———————否：2" << endl;
 		cin >> choose;
 		if (choose == '1') {
-			Insert();//调用插入函数
+			Insert();
 		}
 		else if (choose == '2') {
 			return;
 		}
 		else {
-			cout << "请输入正确的选项" << endl;//错误提示
+			cout << "请输入正确的选项" << endl;
 			system("pause");
 			return;
 		}
 	}
 	else {
-		cout << "该单词的意思是：" << endl;//查找成功
+		cout << "该单词的意思是：" << endl;
 		cout << mean[judge] << endl;
 		system("pause");
 		return;
@@ -108,20 +107,19 @@ void orderlist::Insert() {
 	
 	for (i = 0; i < num; i++) {
 		if (word[i] > w) {
-			for (j = num; j > i; j--) {//找到插入位置整体后移一位
+			for (j = num; j > i; j--) {
 				word[j] = word[j - 1];
 				mean[j] = mean[j - 1];
 			}
-			word[i] = w;//插入拼写
-			mean[i] = c;//插入意思
-			num++;//单词总数加一
+			word[i] = w;
+			mean[i] = c;
+			num++;
 			for (k = (int)w[0] - 97+1; k <= 25; k++) {
 				word_length[k]++;
-				//cout << word_length[k] << endl;//该单词之后每个单词开始的地方后裔一位
 			}
 			FileWriter((int)w[0] - 97);
 			fileInsert();
-			cout << "单词插入成功" << endl;//成功提示
+			cout << "单词插入成功" << endl;
 			system("pause");
 			return;
 		}
@@ -134,20 +132,20 @@ void orderlist::Delete() {
 	string w;
 	cout << "请输入要删除的单词" << endl;
 	cin >> w;
-	temp = search(w, 0, num);//找到单词位置
+	temp = search(w, 0, num);
 	if (temp == -1) {
 		cout << "未找到该单词" << endl;
 		system("pause");
 		return;
 	}
-	for (j = temp; j < num - 1; j++) {//单词前移覆盖
+	for (j = temp; j < num - 1; j++) {
 		word[j] = word[j + 1];
 		mean[j] = mean[j + 1];
 	}
-	num--;//单词总数减1
-	for (k = (int)w[0] - 97+1; k <= 25; k++) {//每个开头起始位置前移
+	num--;
+	for (k = (int)w[0] - 97+1; k <= 25; k++) {
 		word_length[k]--;
-		//cout << word_length[k] << endl;
+		
 	}
 	FileWriter((int)w[0] - 97);
 	cout << "该单词删除成功" << endl;

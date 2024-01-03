@@ -10,11 +10,11 @@ typedef struct mid {
 
 class Word {
 private:
-	string english;//单词拼写。
-	string chinese;//中文解释。
-	bool existence;//单词是否存在。
+	string english;
+	string chinese;
+	bool existence;
 public:
-	Word* next[30];//孩子节点。
+	Word* next[30];
 
 	Word() {
 		string english = "no find";
@@ -29,7 +29,7 @@ public:
 	}//析构函数
 
 	void setEnglish(string e) {
-		english = e;
+		this->english = e;
 	}//设置英文。
 	void setChinese(string c) {
 		this->chinese = c;
@@ -57,13 +57,13 @@ private:
 	void Dele(Word* node);//释放内存
 public:
 
-	tiretree();//无参构造方法。
+	tiretree();//构造方法。
 
 	~tiretree();//析构函数
 
 	bool insert(char eng[], char chi[]);//插入单词
 
-	Word* search(char word[]);//精确查找单词。
+	Word* search(char word[]);//查找单词。
 
 	bool dele(char word[]);//删除单词。
 
@@ -71,7 +71,7 @@ public:
 
 	void fileread(string File);//文件读取。
 
-	void fileread();//默认文件读取（D盘下Dictionary文件夹）
+	void fileread();//读取文件 
 
 	int order(char a);//处理函数
 
@@ -80,5 +80,7 @@ public:
 	int number() {
 		return num;//返回单词数目。
 	}
+	
+	
 
 };

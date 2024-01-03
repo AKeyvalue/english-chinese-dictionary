@@ -26,5 +26,5 @@ public:
 
 	void FileWriter(int num); //文件写入。
 
-	void show(); //显示所有单词
+
 };

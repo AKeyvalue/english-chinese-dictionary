@@ -9,8 +9,8 @@ int main() {
 	while (i) {
 		cout << "------------欢迎使用小型英汉词典--------------" << endl;
 		cout << "请输入词典运行对应数据结构的序号" << endl;
-		cout << "字典树：1----------------------------顺序表：2" << endl;
-		cout << "输入 3 退出程序" << endl;
+		cout << "字典树：1----------------------------顺序表：2------------------------------红黑树：3" << endl;
+		cout << "输入 4 退出程序" << endl;
 		cin >> choose;
 		switch (choose) {
 		case'1': {
@@ -24,6 +24,11 @@ int main() {
 			break;
 		}
 		case '3': {
+			men.manage3();
+			system("cls");
+			break;
+		}
+		case '4': {
 			i = 0;
 			break;
 		}
